@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>İstihbarat Branşı | Personel Veritabanı</title>
+    <title>İstihbarat Branşı | Veritabanı</title>
     <style>
         :root {
-            --bg-color: #0a0a0c;
+            --bg-color: #050505;
+            --panel-bg: #0a0a0c;
             --card-bg: #13141a;
             --text-main: #e2e8f0;
             --text-muted: #94a3b8;
             --accent-red: #dc2626;
+            --accent-dark-red: #7f1d1d;
             --accent-glow: rgba(220, 38, 38, 0.4);
             --border-color: #27272a;
         }
@@ -26,100 +28,10 @@
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.6;
-            padding: 2rem;
-            background-image: radial-gradient(circle at 50% 0%, #1f1013 0%, transparent 50%);
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 3rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 1.5rem;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: #fff;
-            text-shadow: 0 0 10px var(--accent-glow);
-            margin-bottom: 0.5rem;
-        }
-
-        .subtitle {
-            color: var(--accent-red);
-            font-family: monospace;
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-        }
-
-        .role-list {
+            height: 100vh;
             display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .role-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-left: 4px solid var(--border-color);
-            padding: 1.5rem;
-            border-radius: 6px;
-            transition: all 0.3s ease;
-            position: relative;
             overflow: hidden;
-        }
-
-        .role-card:hover {
-            border-left-color: var(--accent-red);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5), inset 4px 0 0 var(--accent-red);
-            transform: translateX(5px);
-        }
-
-        .role-title {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #fff;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .role-title::before {
-            content: '>';
-            color: var(--accent-red);
-            font-family: monospace;
-            font-weight: bold;
-        }
-
-        .role-desc {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        /* Yüksek yetkililer için özel efekt */
-        .high-command {
-            border-left-color: #52525b;
-        }
-        
-        .high-command .role-title {
-            color: #fbbf24;
-        }
-
-        .top-command {
-            border-left-color: var(--accent-red);
-            background: linear-gradient(90deg, #1f1013 0%, var(--card-bg) 100%);
-        }
-        
-        .top-command .role-title {
-            color: var(--accent-red);
-            text-shadow: 0 0 8px var(--accent-glow);
+            background-image: radial-gradient(circle at 50% 0%, #1a0b0d 0%, transparent 60%);
         }
 
         /* Scanline efekti */
@@ -132,82 +44,386 @@
             z-index: 100;
             opacity: 0.3;
         }
+
+        /* Sol Menü (Sidebar) */
+        .sidebar {
+            width: 280px;
+            background-color: var(--panel-bg);
+            border-right: 1px solid var(--accent-dark-red);
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+            box-shadow: 5px 0 15px rgba(0,0,0,0.5);
+        }
+
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+
+        .sidebar-header h1 {
+            color: var(--accent-red);
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .sidebar-header p {
+            font-family: monospace;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-top: 5px;
+        }
+
+        .nav-btn {
+            background: transparent;
+            color: var(--text-muted);
+            border: 1px solid transparent;
+            padding: 12px 15px;
+            text-align: left;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-bottom: 8px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            font-family: monospace;
+        }
+
+        .nav-btn::before {
+            content: '[ ]';
+            margin-right: 10px;
+            color: var(--accent-dark-red);
+        }
+
+        .nav-btn:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #fff;
+        }
+
+        .nav-btn.active {
+            background-color: rgba(220, 38, 38, 0.1);
+            color: var(--accent-red);
+            border-left: 3px solid var(--accent-red);
+        }
+
+        .nav-btn.active::before {
+            content: '[x]';
+            color: var(--accent-red);
+        }
+
+        /* Ana İçerik Alanı */
+        .main-content {
+            flex: 1;
+            padding: 3rem 4rem;
+            overflow-y: auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 2rem;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Kart Yapıları */
+        .info-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid var(--accent-dark-red);
+        }
+
+        .info-card h3 {
+            color: var(--accent-red);
+            margin-bottom: 1rem;
+            font-family: monospace;
+            font-size: 1.1rem;
+        }
+
+        .info-card p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        .info-card ul {
+            list-style: none;
+            margin-left: 10px;
+        }
+
+        .info-card li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .info-card li::before {
+            content: '>';
+            position: absolute;
+            left: 0;
+            color: var(--accent-red);
+            font-weight: bold;
+        }
+
+        .highlight {
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .code-block {
+            background: #000;
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: var(--accent-red);
+            font-family: monospace;
+        }
+
+        /* Rütbe Kartları */
+        .role-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .role-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .role-card:hover {
+            border-color: var(--accent-red);
+            box-shadow: 0 0 15px rgba(220, 38, 38, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .role-card::after {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; width: 0; height: 0;
+            border-style: solid;
+            border-width: 0 20px 20px 0;
+            border-color: transparent var(--border-color) transparent transparent;
+            transition: all 0.3s;
+        }
+
+        .role-card:hover::after {
+            border-color: transparent var(--accent-red) transparent transparent;
+        }
+
+        .role-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #27272a;
+            padding-bottom: 8px;
+        }
+
+        .role-title::before {
+            content: '■';
+            color: var(--accent-red);
+            font-size: 0.8rem;
+            margin-right: 10px;
+        }
+
+        .role-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Yetki Renklendirmeleri */
+        .rank-high .role-title { color: #fbbf24; }
+        .rank-high .role-title::before { color: #fbbf24; }
+        .rank-top { background: linear-gradient(135deg, #13141a 0%, #1a0b0d 100%); border: 1px solid var(--accent-dark-red); }
+        .rank-top .role-title { color: var(--accent-red); }
+        
     </style>
 </head>
 <body>
     <div class="scanlines"></div>
-    <div class="container">
-        <header>
-            <h1>İstihbarat Branşı</h1>
-            <div class="subtitle">// GİZLİ VERİTABANI - YETKİ SEVİYELERİ //</div>
-        </header>
+    
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h1>İSTİHBARAT</h1>
+            <p>SİSTEM TERMİNALİ v2.0</p>
+        </div>
+        <button class="nav-btn active" onclick="openTab('tab-amac')">BRANŞIN AMACI</button>
+        <button class="nav-btn" onclick="openTab('tab-sorgu')">SORGULAMA NEDENLERİ</button>
+        <button class="nav-btn" onclick="openTab('tab-ekipman')">ENVANTER & TOOL</button>
+        <button class="nav-btn" onclick="openTab('tab-kurallar')">BİRİM KURALLARI</button>
+        <button class="nav-btn" onclick="openTab('tab-roller')">YETKİ SEVİYELERİ</button>
+    </aside>
 
-        <div class="role-list">
-            <div class="role-card">
-                <div class="role-title">???</div>
-                <div class="role-desc">Birime yeni sızdırılmış, henüz güvenilirliği tam kanıtlanmamış çaylak. Sistemin işleyişini öğrenir, üstlerinden gelen en basit talimatları yerine getirir.</div>
-            </div>
-
-            <div class="role-card">
-                <div class="role-title">[CLASSIFIED]</div>
-                <div class="role-desc">Kimliği gizli tutulan eğitimdeki personel. Sahadaki olayları uzaktan gözlemler, sadece kendisinden üst rütbelilerin verdiği kısıtlı görevleri yapar.</div>
-            </div>
-
-            <div class="role-card">
-                <div class="role-title">İstihbarat Ajanı</div>
-                <div class="role-desc">Cezaevi içindeki mahkum hareketlerini, çeteleri ve şüpheli durumları izleyen temel saha elemanı. Elde ettiği bilgileri doğrudan Amirlerine raporlar.</div>
-            </div>
-
-            <div class="role-card">
-                <div class="role-title">Müdahale Operatörü</div>
-                <div class="role-desc">Gelen istihbarat doğrultusunda olaylara ilk fiziksel müdahaleyi yapan sahadaki güç. İsyan veya kavgalarda Şeflerinden gelen emirle hareket eder.</div>
-            </div>
-
-            <div class="role-card">
-                <div class="role-title">Kıdemli Müdahale Operatörü</div>
-                <div class="role-desc">Sıcak çatışma ve müdahale konusunda deneyimli personel. Standart operatörlere sahada öncülük eder ve baskınlarda kilit rol oynar.</div>
-            </div>
-
-            <div class="role-card high-command">
-                <div class="role-title">İstihbarat Amiri</div>
-                <div class="role-desc">Ajanların sahadan topladığı bilgileri analiz edip süzgeçten geçiren orta düzey yönetici. Bilgi ağını koordine eder ve Direktör'e hesap verir.</div>
-            </div>
-
-            <div class="role-card high-command">
-                <div class="role-title">Müdahale Şefi</div>
-                <div class="role-desc">Operatörlerin bağlı olduğu ekip lideri. Hücre aramaları, mahkum nakilleri veya isyan bastırma operasyonlarında takımı yönetir. Tim Komutanı'ndan emir alır.</div>
-            </div>
-
-            <div class="role-card high-command">
-                <div class="role-title">İstihbarat Direktörü</div>
-                <div class="role-desc">Cezaevi içindeki tüm bilgi ağının başındaki isim. Amirlerden gelen verileri işler, büyük resmi görür ve üst komuta kademesine istihbarat sağlar.</div>
-            </div>
-
-            <div class="role-card high-command">
-                <div class="role-title">Tim Komutanı</div>
-                <div class="role-desc">Müdahale ve operasyon ekiplerinin en üst düzey saha yöneticisi. Kritik ve riskli operasyonların planlayıcısıdır, sahadaki tüm gücü o yönetir.</div>
-            </div>
-
-            <div class="role-card high-command">
-                <div class="role-title">İstihbarat Saha Şefi</div>
-                <div class="role-desc">Sahadaki hem istihbarat hem de müdahale ekiplerinin genel uyumundan sorumlu denetmen. Karargah ile saha arasındaki ana köprüdür.</div>
-            </div>
-
-            <div class="role-card top-command">
-                <div class="role-title">İstihbarat Komutan Yardımcısı</div>
-                <div class="role-desc">Komutanın sağ kolu. Branşın genel işleyişini denetler, Komutan çevrimdışıyken tüm branşın kontrolünü ve yetkisini elinde tutar.</div>
-            </div>
-
-            <div class="role-card top-command">
-                <div class="role-title">İstihbarat Komutanı</div>
-                <div class="role-desc">Tüm İstihbarat Branşının başındaki mutlak otorite. Cezaevi genelindeki tüm gizli ve açık operasyonların son karar merciidir. Yalnızca Yönetici'den emir alır.</div>
-            </div>
-
-            <div class="role-card top-command">
-                <div class="role-title">Yönetici</div>
-                <div class="role-desc">Sistemin ve branşın en üst düzey yöneticisi. Rütbeleri belirler, kuralları koyar ve tüm birimin kaderini belirler. Kimseye hesap vermez.</div>
+    <main class="main-content">
+        
+        <div id="tab-amac" class="tab-content active">
+            <h2 class="section-title">BRANŞIN AMACI VE YAPISI</h2>
+            <div class="info-card">
+                <h3>// TEMEL MİSYON //</h3>
+                <p>İstihbarat Branşının temel varlık sebebi; cezaevi ve oyun içindeki tüm hareketliliği gölge gibi izlemek, disiplinsiz ve kural dışı davrananları tespit edip gerektiğinde sorgulamaktır. Bizler sistemin düzenini sağlayan görünmez eliz.</p>
+                <p><span class="highlight">DİKKAT:</span> Sunucudaki <strong>istisnasız herkes</strong> denetlenebilir ve yaptıkları anlık olarak kayıt altına alınabilir. Bir personelin veya oyuncunun yanlış bir hamle yapması, anında bir sorgu odasına çekileceği anlamına gelmez. Ancak yapılan her kural ihlali gizli arşivimize işlenir ve günü geldiğinde tüm bunların hesabı toplu bir şekilde sorulur.</p>
             </div>
         </div>
-    </div>
+
+        <div id="tab-sorgu" class="tab-content">
+            <h2 class="section-title">SORGULAMA PROTOKOLLERİ</h2>
+            <div class="info-card">
+                <h3>// MÜDAHALE GEREKTİREN DURUMLAR //</h3>
+                <p>Aşağıdaki ihlaller tespit edildiğinde personelin ilgili şahısları derhal sorguya alma veya işlem başlatma yetkisi bulunmaktadır:</p>
+                <ul>
+                    <li><span class="highlight">Yetki Kötüye Kullanımı (Abuse):</span> Sistem içi komutların oyunun doğal akışını bozacak, kişisel ego tatmin edecek veya haksız avantaj sağlayacak şekilde gereksiz kullanımı. <br><em>Örnek Tespitler: Gereksiz atılan <span class="code-block">;fling</span>, <span class="code-block">;kill</span>, veya tüm sunucuyu etkileyen <span class="code-block">;nuke</span> komutları.</em></li>
+                    <li><span class="highlight">Ağır Hakaret ve Toksiklik:</span> Sunucu içi huzuru bozan; milli, dini veya manevi değerlere yönelik olarak edilen ağır küfürler ve provokatif söylemler.</li>
+                    <li><span class="highlight">Sistem Sabotajı:</span> Kurulmuş düzeni bilinçli olarak yıkmaya çalışmak, hile kullanımı veya yetkilileri yanıltıcı beyanlarda bulunmak.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="tab-ekipman" class="tab-content">
+            <h2 class="section-title">ENVANTER VE KULLANIM İZİNLERİ</h2>
+            <div class="info-card">
+                <h3>// TAHSİS EDİLEN EKİPMANLAR //</h3>
+                <ul>
+                    <li><span class="highlight">Şifreli Telsiz (Kripto Ağ):</span> Branş içi iletişim dışarıya sızdırılamaz. İstihbarat personeli kendi aralarında veya üs ile iletişime geçerken telsizi kesinlikle "Şifreli (Kripto)" modda aktifleştirmek zorundadır. Aksi durum güvenlik zafiyeti sayılır.</li>
+                    <li><span class="highlight">SpyCamera (Gözlem Cihazı):</span> Cezaevi içindeki şüpheli hareketleri kör noktalardan izlemek, hedef oyuncuları denetlemek ve ceza-sorgu işlemleri için sarsılmaz kanıtlar toplamak amacıyla kullanılır.</li>
+                    <li><span class="highlight">USP-S (Taktiksel Tabanca):</span> Saha personelinin hayatta kalmasını sağlamak için zimmetlenmiştir. Kendinizi savunmak veya aktif bir isyana müdahale etmek için inisiyatifiniz doğrultusunda, dilediğiniz gibi kullanabilirsiniz.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="tab-kurallar" class="tab-content">
+            <h2 class="section-title">BİRİM İÇİ KURALLAR</h2>
+            <div class="info-card">
+                <h3>// İŞLEYİŞ VE DİSİPLİN YÖNERGESİ //</h3>
+                <ul>
+                    <li><span class="highlight">Gölge Prensibi:</span> Hedefin izlendiğini fark etmesi operasyonel bir başarısızlıktır. Gözetlemeler mutlak gizlilik ve profesyonellik çerçevesinde yürütülmelidir.</li>
+                    <li><span class="highlight">Kanıt Zorunluluğu:</span> Hiçbir ajan veya operatör, elinde log kaydı, video veya net ekran görüntüsü olmadan hiç kimseyi suçlayamaz. Kanıt yoksa, suç da yoktur.</li>
+                    <li><span class="highlight">Mutlak İtaat:</span> Hiyerarşik düzene saygı esastır. Verilen emirlere, sunucu kurallarıyla çelişmediği sürece sorgusuz sualsiz uyulur. Alt rütbeler kendi başlarına büyük operasyonlar başlatamaz.</li>
+                    <li><span class="highlight">Tarafsızlık:</span> Sorgulanan kişi ister sıradan bir mahkum, ister yakın bir arkadaşınız olsun; istihbarat personeli duygularıyla değil, kurallarla hareket eder.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="tab-roller" class="tab-content">
+            <h2 class="section-title">YETKİ SEVİYELERİ VE RÜTBELER</h2>
+            <div class="role-grid">
+                
+                <div class="role-card">
+                    <div class="role-title">???</div>
+                    <div class="role-desc">Birime yeni sızdırılmış, henüz güvenilirliği tam kanıtlanmamış çaylak. Sistemin işleyişini öğrenir, üstlerinden gelen en basit talimatları yerine getirir.</div>
+                </div>
+
+                <div class="role-card">
+                    <div class="role-title">[CLASSIFIED]</div>
+                    <div class="role-desc">Kimliği gizli tutulan eğitimdeki personel. Sahadaki olayları uzaktan gözlemler, sadece kendisinden üst rütbelilerin verdiği kısıtlı görevleri yapar.</div>
+                </div>
+
+                <div class="role-card">
+                    <div class="role-title">İstihbarat Ajanı</div>
+                    <div class="role-desc">Cezaevi içindeki mahkum hareketlerini, çeteleri ve şüpheli durumları izleyen temel saha elemanı. Elde ettiği bilgileri doğrudan Amirlerine raporlar.</div>
+                </div>
+
+                <div class="role-card">
+                    <div class="role-title">Müdahale Operatörü</div>
+                    <div class="role-desc">Gelen istihbarat doğrultusunda olaylara ilk fiziksel müdahaleyi yapan sahadaki güç. İsyan veya kavgalarda Şeflerinden gelen emirle hareket eder.</div>
+                </div>
+
+                <div class="role-card">
+                    <div class="role-title">Kıdemli Müdahale Operatörü</div>
+                    <div class="role-desc">Sıcak çatışma ve müdahale konusunda deneyimli personel. Standart operatörlere sahada öncülük eder ve baskınlarda kilit rol oynar.</div>
+                </div>
+
+                <div class="role-card rank-high">
+                    <div class="role-title">İstihbarat Amiri</div>
+                    <div class="role-desc">Ajanların sahadan topladığı bilgileri analiz edip süzgeçten geçiren orta düzey yönetici. Bilgi ağını koordine eder ve Direktör'e hesap verir.</div>
+                </div>
+
+                <div class="role-card rank-high">
+                    <div class="role-title">Müdahale Şefi</div>
+                    <div class="role-desc">Operatörlerin bağlı olduğu ekip lideri. Hücre aramaları, mahkum nakilleri veya isyan bastırma operasyonlarında takımı yönetir. Tim Komutanı'ndan emir alır.</div>
+                </div>
+
+                <div class="role-card rank-high">
+                    <div class="role-title">İstihbarat Direktörü</div>
+                    <div class="role-desc">Cezaevi içindeki tüm bilgi ağının başındaki isim. Amirlerden gelen verileri işler, büyük resmi görür ve üst komuta kademesine istihbarat sağlar.</div>
+                </div>
+
+                <div class="role-card rank-high">
+                    <div class="role-title">Tim Komutanı</div>
+                    <div class="role-desc">Müdahale ve operasyon ekiplerinin en üst düzey saha yöneticisi. Kritik ve riskli operasyonların planlayıcısıdır, sahadaki tüm gücü o yönetir.</div>
+                </div>
+
+                <div class="role-card rank-high">
+                    <div class="role-title">İstihbarat Saha Şefi</div>
+                    <div class="role-desc">Sahadaki hem istihbarat hem de müdahale ekiplerinin genel uyumundan sorumlu denetmen. Karargah ile saha arasındaki ana köprüdür.</div>
+                </div>
+
+                <div class="role-card rank-top">
+                    <div class="role-title">İstihbarat Komutan Yardımcısı</div>
+                    <div class="role-desc">Komutanın sağ kolu. Branşın genel işleyişini denetler, Komutan çevrimdışıyken tüm branşın kontrolünü ve yetkisini elinde tutar.</div>
+                </div>
+
+                <div class="role-card rank-top">
+                    <div class="role-title">İstihbarat Komutanı</div>
+                    <div class="role-desc">Tüm İstihbarat Branşının başındaki mutlak otorite. Cezaevi genelindeki tüm gizli ve açık operasyonların son karar merciidir. Yalnızca Yönetici'den emir alır.</div>
+                </div>
+
+                <div class="role-card rank-top" style="grid-column: 1 / -1;">
+                    <div class="role-title">Yönetici</div>
+                    <div class="role-desc">Sistemin ve branşın en üst düzey yöneticisi. Rütbeleri belirler, kuralları koyar ve tüm birimin kaderini belirler. Kimseye hesap vermez.</div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // Sekmeleri değiştiren küçük JavaScript kodu
+        function openTab(tabId) {
+            // Tüm içerikleri gizle
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+
+            // Tüm butonlardaki aktifliği kaldır
+            const btns = document.querySelectorAll('.nav-btn');
+            btns.forEach(btn => btn.classList.remove('active'));
+
+            // Tıklanan sekmeyi ve butonu aktif et
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+    </script>
 </body>
 </html>
