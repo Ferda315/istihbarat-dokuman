@@ -1,1 +1,213 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İstihbarat Branşı | Personel Veritabanı</title>
+    <style>
+        :root {
+            --bg-color: #0a0a0c;
+            --card-bg: #13141a;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --accent-red: #dc2626;
+            --accent-glow: rgba(220, 38, 38, 0.4);
+            --border-color: #27272a;
+        }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 2rem;
+            background-image: radial-gradient(circle at 50% 0%, #1f1013 0%, transparent 50%);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: #fff;
+            text-shadow: 0 0 10px var(--accent-glow);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--accent-red);
+            font-family: monospace;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+        }
+
+        .role-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .role-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .role-card:hover {
+            border-left-color: var(--accent-red);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5), inset 4px 0 0 var(--accent-red);
+            transform: translateX(5px);
+        }
+
+        .role-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .role-title::before {
+            content: '>';
+            color: var(--accent-red);
+            font-family: monospace;
+            font-weight: bold;
+        }
+
+        .role-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Yüksek yetkililer için özel efekt */
+        .high-command {
+            border-left-color: #52525b;
+        }
+        
+        .high-command .role-title {
+            color: #fbbf24;
+        }
+
+        .top-command {
+            border-left-color: var(--accent-red);
+            background: linear-gradient(90deg, #1f1013 0%, var(--card-bg) 100%);
+        }
+        
+        .top-command .role-title {
+            color: var(--accent-red);
+            text-shadow: 0 0 8px var(--accent-glow);
+        }
+
+        /* Scanline efekti */
+        .scanlines {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body>
+    <div class="scanlines"></div>
+    <div class="container">
+        <header>
+            <h1>İstihbarat Branşı</h1>
+            <div class="subtitle">// GİZLİ VERİTABANI - YETKİ SEVİYELERİ //</div>
+        </header>
+
+        <div class="role-list">
+            <div class="role-card">
+                <div class="role-title">???</div>
+                <div class="role-desc">Birime yeni sızdırılmış, henüz güvenilirliği tam kanıtlanmamış çaylak. Sistemin işleyişini öğrenir, üstlerinden gelen en basit talimatları yerine getirir.</div>
+            </div>
+
+            <div class="role-card">
+                <div class="role-title">[CLASSIFIED]</div>
+                <div class="role-desc">Kimliği gizli tutulan eğitimdeki personel. Sahadaki olayları uzaktan gözlemler, sadece kendisinden üst rütbelilerin verdiği kısıtlı görevleri yapar.</div>
+            </div>
+
+            <div class="role-card">
+                <div class="role-title">İstihbarat Ajanı</div>
+                <div class="role-desc">Cezaevi içindeki mahkum hareketlerini, çeteleri ve şüpheli durumları izleyen temel saha elemanı. Elde ettiği bilgileri doğrudan Amirlerine raporlar.</div>
+            </div>
+
+            <div class="role-card">
+                <div class="role-title">Müdahale Operatörü</div>
+                <div class="role-desc">Gelen istihbarat doğrultusunda olaylara ilk fiziksel müdahaleyi yapan sahadaki güç. İsyan veya kavgalarda Şeflerinden gelen emirle hareket eder.</div>
+            </div>
+
+            <div class="role-card">
+                <div class="role-title">Kıdemli Müdahale Operatörü</div>
+                <div class="role-desc">Sıcak çatışma ve müdahale konusunda deneyimli personel. Standart operatörlere sahada öncülük eder ve baskınlarda kilit rol oynar.</div>
+            </div>
+
+            <div class="role-card high-command">
+                <div class="role-title">İstihbarat Amiri</div>
+                <div class="role-desc">Ajanların sahadan topladığı bilgileri analiz edip süzgeçten geçiren orta düzey yönetici. Bilgi ağını koordine eder ve Direktör'e hesap verir.</div>
+            </div>
+
+            <div class="role-card high-command">
+                <div class="role-title">Müdahale Şefi</div>
+                <div class="role-desc">Operatörlerin bağlı olduğu ekip lideri. Hücre aramaları, mahkum nakilleri veya isyan bastırma operasyonlarında takımı yönetir. Tim Komutanı'ndan emir alır.</div>
+            </div>
+
+            <div class="role-card high-command">
+                <div class="role-title">İstihbarat Direktörü</div>
+                <div class="role-desc">Cezaevi içindeki tüm bilgi ağının başındaki isim. Amirlerden gelen verileri işler, büyük resmi görür ve üst komuta kademesine istihbarat sağlar.</div>
+            </div>
+
+            <div class="role-card high-command">
+                <div class="role-title">Tim Komutanı</div>
+                <div class="role-desc">Müdahale ve operasyon ekiplerinin en üst düzey saha yöneticisi. Kritik ve riskli operasyonların planlayıcısıdır, sahadaki tüm gücü o yönetir.</div>
+            </div>
+
+            <div class="role-card high-command">
+                <div class="role-title">İstihbarat Saha Şefi</div>
+                <div class="role-desc">Sahadaki hem istihbarat hem de müdahale ekiplerinin genel uyumundan sorumlu denetmen. Karargah ile saha arasındaki ana köprüdür.</div>
+            </div>
+
+            <div class="role-card top-command">
+                <div class="role-title">İstihbarat Komutan Yardımcısı</div>
+                <div class="role-desc">Komutanın sağ kolu. Branşın genel işleyişini denetler, Komutan çevrimdışıyken tüm branşın kontrolünü ve yetkisini elinde tutar.</div>
+            </div>
+
+            <div class="role-card top-command">
+                <div class="role-title">İstihbarat Komutanı</div>
+                <div class="role-desc">Tüm İstihbarat Branşının başındaki mutlak otorite. Cezaevi genelindeki tüm gizli ve açık operasyonların son karar merciidir. Yalnızca Yönetici'den emir alır.</div>
+            </div>
+
+            <div class="role-card top-command">
+                <div class="role-title">Yönetici</div>
+                <div class="role-desc">Sistemin ve branşın en üst düzey yöneticisi. Rütbeleri belirler, kuralları koyar ve tüm birimin kaderini belirler. Kimseye hesap vermez.</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
