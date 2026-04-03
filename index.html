@@ -204,6 +204,57 @@
             font-family: monospace;
         }
 
+        /* ASCII Formasyon Çizimleri İçin Yeni Stil */
+        .formation-container {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .formation-box {
+            background: #000;
+            border: 1px solid var(--accent-dark-red);
+            padding: 1.5rem;
+            border-radius: 6px;
+            flex: 1;
+            min-width: 250px;
+            box-shadow: inset 0 0 20px rgba(220, 38, 38, 0.05);
+        }
+
+        .formation-box h4 {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 1rem;
+            font-family: monospace;
+            letter-spacing: 2px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 5px;
+        }
+
+        .ascii-art {
+            color: var(--text-muted);
+            font-family: monospace;
+            font-size: 1.2rem;
+            text-align: center;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            white-space: pre;
+        }
+
+        .leader-dot {
+            color: var(--accent-red);
+            font-weight: bold;
+            text-shadow: 0 0 8px var(--accent-glow);
+        }
+
+        .formation-desc {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            text-align: center;
+            border-top: 1px dashed #333;
+            padding-top: 10px;
+        }
+
         /* Rütbe Kartları */
         .role-grid {
             display: grid;
@@ -263,7 +314,6 @@
             font-size: 0.9rem;
         }
 
-        /* Yetki Renklendirmeleri */
         .rank-high .role-title { color: #fbbf24; }
         .rank-high .role-title::before { color: #fbbf24; }
         .rank-top { background: linear-gradient(135deg, #13141a 0%, #1a0b0d 100%); border: 1px solid var(--accent-dark-red); }
@@ -277,12 +327,13 @@
     <aside class="sidebar">
         <div class="sidebar-header">
             <h1>İSTİHBARAT</h1>
-            <p>SİSTEM TERMİNALİ v2.0</p>
+            <p>SİSTEM TERMİNALİ v2.1</p>
         </div>
         <button class="nav-btn active" onclick="openTab('tab-amac')">BRANŞIN AMACI</button>
         <button class="nav-btn" onclick="openTab('tab-sorgu')">SORGULAMA NEDENLERİ</button>
         <button class="nav-btn" onclick="openTab('tab-ekipman')">ENVANTER & TOOL</button>
         <button class="nav-btn" onclick="openTab('tab-kurallar')">BİRİM KURALLARI</button>
+        <button class="nav-btn" onclick="openTab('tab-formasyon')">TAKTIKSEL FORMASYONLAR</button>
         <button class="nav-btn" onclick="openTab('tab-roller')">YETKİ SEVİYELERİ</button>
     </aside>
 
@@ -332,6 +383,52 @@
                     <li><span class="highlight">Mutlak İtaat:</span> Hiyerarşik düzene saygı esastır. Verilen emirlere, sunucu kurallarıyla çelişmediği sürece sorgusuz sualsiz uyulur. Alt rütbeler kendi başlarına büyük operasyonlar başlatamaz.</li>
                     <li><span class="highlight">Tarafsızlık:</span> Sorgulanan kişi ister sıradan bir mahkum, ister yakın bir arkadaşınız olsun; istihbarat personeli duygularıyla değil, kurallarla hareket eder.</li>
                 </ul>
+            </div>
+        </div>
+
+        <div id="tab-formasyon" class="tab-content">
+            <h2 class="section-title">SAHA DİZİLİMİ VE FORMASYONLAR</h2>
+            <div class="info-card" style="margin-bottom: 2rem;">
+                <p>Sahadaki ajanlar ve operatörler operasyon sırasında rastgele hareket edemezler. Duruma ve mekana göre Komutanın <span class="leader-dot">[K]</span> talimatıyla aşağıdaki taktiksel dizilimlere anında geçilmelidir. <br><em><span class="leader-dot">[K]</span> = Lider/Komutan | [O] = Operatör/Ajan</em></p>
+            </div>
+
+            <div class="formation-container">
+                
+                <div class="formation-box">
+                    <h4>STS (SHOULDER TO SHOULDER)</h4>
+                    <div class="ascii-art">
+[O]  [O]  <span class="leader-dot">[K]</span>  [O]  [O]
+                    </div>
+                    <div class="formation-desc">
+                        <strong>Omuz Omuza Dizilim:</strong> Brifinglerde, bir VIP veya rehinneyi korurken, ya da bir koridoru tamamen kapatıp barikat kurmak gerektiğinde kullanılır. Komutan merkezdedir.
+                    </div>
+                </div>
+
+                <div class="formation-box">
+                    <h4>SFL (SINGLE FILE LINE)</h4>
+                    <div class="ascii-art">
+  <span class="leader-dot">[K]</span>
+  [O]
+  [O]
+  [O]
+                    </div>
+                    <div class="formation-desc">
+                        <strong>Tek Sıra Dizilimi:</strong> Dar koridorlardan geçişte, merdivenlerde ve standart devriyelerde kullanılır. Herkes önündekini takip eder, arkadan gelen tehditlere son kişi bakar.
+                    </div>
+                </div>
+
+                <div class="formation-box" style="flex-basis: 100%;">
+                    <h4>WEDGE (KAMA / V FORMASYONU)</h4>
+                    <div class="ascii-art">
+      <span class="leader-dot">[K]</span>
+    [O]   [O]
+  [O]       [O]
+                    </div>
+                    <div class="formation-desc">
+                        <strong>Saldırı ve İlerleme:</strong> Geniş ve açık alanlarda ilerlerken veya sıcak çatışmaya girerken kullanılır. Maksimum görüş açısı ve çapraz ateş imkanı sağlar. Lider en önde takıma yön verir.
+                    </div>
+                </div>
+
             </div>
         </div>
 
