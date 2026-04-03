@@ -219,26 +219,30 @@
             flex: 1;
             min-width: 250px;
             box-shadow: inset 0 0 20px rgba(220, 38, 38, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .formation-box h4 {
             color: #fff;
             text-align: center;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             font-family: monospace;
             letter-spacing: 2px;
             border-bottom: 1px solid #333;
             padding-bottom: 5px;
+            width: 100%;
         }
 
         .ascii-art {
             color: var(--text-muted);
-            font-family: monospace;
-            font-size: 1.2rem;
+            font-family: 'Courier New', Courier, monospace; /* Bozulmaması için özel terminal fontu */
+            font-size: 1.3rem;
             text-align: center;
-            line-height: 1.5;
-            margin-bottom: 1rem;
-            white-space: pre;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
         }
 
         .leader-dot {
@@ -252,7 +256,8 @@
             color: #94a3b8;
             text-align: center;
             border-top: 1px dashed #333;
-            padding-top: 10px;
+            padding-top: 15px;
+            width: 100%;
         }
 
         /* Rütbe Kartları */
@@ -397,20 +402,20 @@
                 <div class="formation-box">
                     <h4>STS (SHOULDER TO SHOULDER)</h4>
                     <div class="ascii-art">
-[O]  [O]  <span class="leader-dot">[K]</span>  [O]  [O]
+[O]&nbsp;&nbsp;[O]&nbsp;&nbsp;<span class="leader-dot">[K]</span>&nbsp;&nbsp;[O]&nbsp;&nbsp;[O]
                     </div>
                     <div class="formation-desc">
-                        <strong>Omuz Omuza Dizilim:</strong> Brifinglerde, bir VIP veya rehinneyi korurken, ya da bir koridoru tamamen kapatıp barikat kurmak gerektiğinde kullanılır. Komutan merkezdedir.
+                        <strong>Omuz Omuza Dizilim:</strong> Brifinglerde, bir VIP veya rehineyi korurken, ya da bir koridoru tamamen kapatıp barikat kurmak gerektiğinde kullanılır. Komutan merkezdedir.
                     </div>
                 </div>
 
                 <div class="formation-box">
                     <h4>SFL (SINGLE FILE LINE)</h4>
                     <div class="ascii-art">
-  <span class="leader-dot">[K]</span>
-  [O]
-  [O]
-  [O]
+<span class="leader-dot">[K]</span><br>
+[O]<br>
+[O]<br>
+[O]
                     </div>
                     <div class="formation-desc">
                         <strong>Tek Sıra Dizilimi:</strong> Dar koridorlardan geçişte, merdivenlerde ve standart devriyelerde kullanılır. Herkes önündekini takip eder, arkadan gelen tehditlere son kişi bakar.
@@ -420,9 +425,9 @@
                 <div class="formation-box" style="flex-basis: 100%;">
                     <h4>WEDGE (KAMA / V FORMASYONU)</h4>
                     <div class="ascii-art">
-      <span class="leader-dot">[K]</span>
-    [O]   [O]
-  [O]       [O]
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="leader-dot">[K]</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;[O]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[O]<br>
+[O]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[O]
                     </div>
                     <div class="formation-desc">
                         <strong>Saldırı ve İlerleme:</strong> Geniş ve açık alanlarda ilerlerken veya sıcak çatışmaya girerken kullanılır. Maksimum görüş açısı ve çapraz ateş imkanı sağlar. Lider en önde takıma yön verir.
